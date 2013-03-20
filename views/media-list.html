@@ -1,0 +1,61 @@
+
+<div id="main" class="container-fluid">
+    <h2 id="hdr"><img id="tunesImg" src="img/ITunes_11_Logo.png" width="32" height="32">iTunes Media Search</h2>
+
+    <form id="myForm" class="form-inline form-search" style="padding-left: 10px">
+        <input id="in" type="text" ng-model="searchTerm" class="search-query">
+        <button class="btn" ng-click="doSearch()"><i class="icon-search"></i>Search</button>
+        <label>Sort by
+            <select ng-model="orderProp">
+                <option value="kind" selected>Media Type</option>
+                <option value="wrapperType">Media Item Name</option>
+                <option value="collectionName">Collection Name</option>
+                <option value="artistName">Artist</option>
+            </select>
+        </label>
+
+    </form>
+    <table id="resultsTbl" class="table table-striped"  style="display: none">
+        <thead>
+        <tr>
+            <th></th>
+            <th>Cover</th>
+            <th>Track</th>
+            <th>Type</th>
+            <th>Artist</th>
+            <th>Collection</th>
+            <th>Collection Price</th>
+            <th>Track Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="res in mediaResults | filter:searchTerm | orderBy:orderProp">
+            <!--                        class="btn" ng-click="changePath()"><i class="icon-play"></i></button></td>-->
+            <td><button id="playBtn"
+                        class="btn" ng-click="playVideo(res)"><i class="icon-play"></i></button></td>
+            <td><a href="{{res.previewUrl}}"><img ng-src="{{res.artworkUrl60}}"/></a></td>
+            <td>{{(res.trackName != null) && res.trackName || res.collectionName}}</td>
+            <td>{{res.kind | capitalize}}</td>
+            <td>{{res.artistName}}</td>
+            <td>{{res.collectionName}}</td>
+            <td>{{res.trackPrice}}</td>
+            <td>{{res.collectionPrice}}</td>
+            <div id="simpleModal" show-modal="">
+                <blockquote>
+                    <p>{{title | capitalize}}</p>
+
+                    <small>by <cite>{{artist}}</cite></small>
+                </blockquote>
+                <button id="closeSimple" ng-click="closeVideo()" class="btn"><i class="icon-remove"></i></button>
+                <video id="vid" width="320" height="240" video-loader="res.previewUrl" autoplay controls>
+                    {{url}}
+                    <source id="vidsrc" ng-src="url" type="video/mp4">
+                </video>
+            </div>
+        </tr>
+        </tbody>
+    </table>
+    <img ng-src="{{mainImageUrl}}" class="phone">
+
+
+</div>

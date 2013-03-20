@@ -1,0 +1,48 @@
+/* app css stylesheet */
+
+body {
+    background-color: rgb(249, 248, 249);
+}
+#main {
+    background-color: rgb(238, 238, 238);
+}
+
+div#simpleModal
+{
+    z-index:10;
+    position:fixed;
+    top:50%; left:50%;
+    margin-left:-160px;
+    margin-top:-150px;
+    width: 320px;
+    border: solid 1px #bbb;
+    padding: 20px;
+    background: #fff;
+    -webkit-box-shadow: 0px 3px 6px rgba(0,0,0,0.25);
+    opacity: 0.0;
+    -webkit-transition: opacity 0.0s ease-out; z-index: 0;
+}
+
+div#simpleModal.show
+{
+    opacity: 1.0;
+    z-index: 100;
+    -webkit-transition-duration: 0.50s;
+}
+#closeSimple {
+    position: absolute;
+    right: 7px;
+    top: 7px;
+}
+#hdr {
+    /* override the bootstrap H2 for this */
+    margin: 10px;
+    line-height: 0px;
+}
+#myForm {
+    margin: 5px;
+}
+#tunesImg {
+    padding: 0px 3px 3px 0px;
+
+}
