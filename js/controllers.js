@@ -2,7 +2,7 @@
 
 /* Controllers */
 
-mediaApp.controller('MediaListCtrl',function($scope,MediaService,$resource,$http){
+mediaApp.controller('MediaListCtrl',function($scope,MediaService){
     $scope.searchTerm = "Alicia Keys";
     $scope.mediaType = "all";
     $scope.filterTerm = "";
