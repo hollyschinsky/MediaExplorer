@@ -14,7 +14,6 @@ mediaApp.controller('MediaListCtrl',function($scope,MediaService,$resource,$http
         if ($scope.mediaType=="all")  type="";
         MediaService.get({term:$scope.searchTerm,entity:type},function(response){
             $scope.mediaResults = response.results;
-            $scope.searchTerm = "";
         });
     }
 

@@ -22,7 +22,6 @@ div#simpleModal
     opacity: 0.0;
     -webkit-transition: opacity 0.0s ease-out; z-index: 0;
 }
-
 div#simpleModal.show
 {
     opacity: 1.0;
@@ -52,5 +51,4 @@ div#simpleModal.show
 
 label {
     padding-left: 3px;
-
 }

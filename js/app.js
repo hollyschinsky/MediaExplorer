@@ -1,6 +1,6 @@
 'use strict';
-/* App Module */
 
+/* App Module */
 var mediaApp = angular.module('mediaApp', ['ngResource']);
 
 mediaApp.config(['$routeProvider', function($routeProvider) {
