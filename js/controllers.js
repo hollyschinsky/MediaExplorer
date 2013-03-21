@@ -3,50 +3,19 @@
 /* Controllers */
 
 mediaApp.controller('MediaListCtrl',function($scope,MediaService,$resource,$http){
-    $scope.searchTerm = "Rhianna";
-    $scope.orderProp = "kind";
+    $scope.searchTerm = "Alicia Keys";
+    $scope.mediaType = "all";
+    $scope.filterTerm = "";
+    $scope.sortProp = "artistName";
     $scope.showFlag = false;
 
     $scope.doSearch = function () {
-
-        //var url = "https://itunes.apple.com/search?callback=JSON_CALLBACK&term=Rhianna";
-//        $http.jsonp(url)
-//            .success(function(data){
-//                console.log(data.results);
-//                $scope.mediaResults = data.results;
-//                $('#resultsTbl').css('display','table');
-//                $scope.searchTerm = "";
-//                console.log("Results length "+ $scope.mediaResults.length);
-//            });
-
-        MediaService.get({term:$scope.searchTerm},function(response){
+        var type = $scope.mediaType;
+        if ($scope.mediaType=="all")  type="";
+        MediaService.get({term:$scope.searchTerm,entity:type},function(response){
             $scope.mediaResults = response.results;
-            $('#resultsTbl').css('display','table');
             $scope.searchTerm = "";
         });
-
-//        $scope.media.get({term:$scope.searchTerm}, function(response){
-//            alert(response);
-//            $scope.mediaResults = response.results;
-//            $('#resultsTbl').css('display','table');
-//            $scope.searchTerm = "";
-//        });
-
-        //$scope.mediaResults = $scope.media.get();
-        //$('#resultsTbl').css('display','table');
-
-//        $scope.media = MediaService.get(
-//            {term:$scope.searchTerm }, //params
-//            function (data) {   //success
-//                $scope.mediaResults = data.results;
-//                $('#resultsTbl').css('display','table');
-//                $scope.searchTerm = "";
-//            },
-//            function (data) {   //failure
-//                //error handling goes here
-//                console.log("Failure in retrieving data...")
-//            }
-//        );
     }
 
     $scope.playVideo = function(item) {

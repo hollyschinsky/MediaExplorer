@@ -3,19 +3,34 @@
     <h2 id="hdr"><img id="tunesImg" src="img/ITunes_11_Logo.png" width="32" height="32">iTunes Media Search</h2>
 
     <form id="myForm" class="form-inline form-search" style="padding-left: 10px">
-        <input id="in" type="text" ng-model="searchTerm" class="search-query">
-        <button class="btn" ng-click="doSearch()"><i class="icon-search"></i>Search</button>
-        <label>Sort by
-            <select ng-model="orderProp">
-                <option value="kind" selected>Media Type</option>
-                <option value="wrapperType">Media Item Name</option>
-                <option value="collectionName">Collection Name</option>
-                <option value="artistName">Artist</option>
+        <label>Search for
+            <input id="in" type="text" ng-model="searchTerm" class="search-query input-medium">
+        </label>
+        <label>Media Type
+            <select ng-model="mediaType" class="input-small">
+                <option value="all" selected>All</option>
+                <option value="musicVideo" selected>Video</option>
+                <option value="movie">Movie</option>
+                <option value="music">Music</option>
+                <option value="tvShow">TV Show</option>
             </select>
         </label>
-
+        <button class="btn" ng-click="doSearch()"><i class="icon-search"></i>Search</button>
+        <span id="qualifiers">
+            <label>Sort by
+                <select ng-model="sortProp" class="input-medium">
+                    <option value="artistName">Artist</option>
+                    <option value="wrapperType">Media Item Name</option>
+                    <option value="collectionName">Collection Name</option>
+                    <option value="kind" selected>Media Type</option>
+                </select>
+            </label>
+            <label>Filter by
+                <input type="text" ng-model="filterTerm" class="input-small">
+            </label>
+        </span>
     </form>
-    <table id="resultsTbl" class="table table-striped"  style="display: none">
+    <table id="resultsTbl" class="table table-striped">
         <thead>
         <tr>
             <th></th>
@@ -29,17 +44,16 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="res in mediaResults | filter:searchTerm | orderBy:orderProp">
-            <!--                        class="btn" ng-click="changePath()"><i class="icon-play"></i></button></td>-->
+        <tr ng-repeat="item in mediaResults | filter:filterTerm | orderBy:sortProp">
             <td><button id="playBtn"
-                        class="btn" ng-click="playVideo(res)"><i class="icon-play"></i></button></td>
-            <td><a href="{{res.previewUrl}}"><img ng-src="{{res.artworkUrl60}}"/></a></td>
-            <td>{{(res.trackName != null) && res.trackName || res.collectionName}}</td>
-            <td>{{res.kind | capitalize}}</td>
-            <td>{{res.artistName}}</td>
-            <td>{{res.collectionName}}</td>
-            <td>{{res.trackPrice}}</td>
-            <td>{{res.collectionPrice}}</td>
+                        class="btn" ng-click="playVideo(item)"><i class="icon-play"></i></button></td>
+            <td><a href="{{item.previewUrl}}"><img ng-src="{{item.artworkUrl60}}"/></a></td>
+            <td>{{(item.trackName != null) && item.trackName || item.collectionName}}</td>
+            <td>{{item.kind | capitalize}}</td>
+            <td>{{item.artistName}}</td>
+            <td>{{item.collectionName}}</td>
+            <td>{{item.trackPrice}}</td>
+            <td>{{item.collectionPrice}}</td>
             <div id="simpleModal" show-modal="">
                 <blockquote>
                     <p>{{title | capitalize}}</p>
@@ -47,7 +61,7 @@
                     <small>by <cite>{{artist}}</cite></small>
                 </blockquote>
                 <button id="closeSimple" ng-click="closeVideo()" class="btn"><i class="icon-remove"></i></button>
-                <video id="vid" width="320" height="240" video-loader="res.previewUrl" autoplay controls>
+                <video id="vid" width="320" height="240" video-loader autoplay controls>
                     {{url}}
                     <source id="vidsrc" ng-src="url" type="video/mp4">
                 </video>
@@ -56,6 +70,4 @@
         </tbody>
     </table>
     <img ng-src="{{mainImageUrl}}" class="phone">
-
-
 </div>
